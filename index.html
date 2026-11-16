@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latihan Kanji JLPT N5–N4</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .container {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 760px;
+    width: 100%;
+    padding: 30px;
+    position: relative;
+  }
+  h1 { font-size: 1.4em; color: #333; margin-bottom: 6px; text-align: center; }
+  .subtitle { text-align: center; color: #888; font-size: 0.85em; margin-bottom: 20px; }
+
+  .menu { text-align: center; }
+  .menu .btn { margin-top: 12px; }
+  .menu-desc { color: #666; font-size: 0.95em; margin-bottom: 8px; line-height: 1.6; }
+  .badge-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 16px 0; }
+  .badge {
+    background: #f0f2ff; color: #667eea; padding: 6px 14px; border-radius: 20px;
+    font-size: 0.85em; font-weight: 600;
+  }
+
+  .mode-explanation {
+    background: #f8f9ff; border-radius: 12px; padding: 14px 16px; margin: 16px 0;
+    text-align: left; font-size: 0.88em; line-height: 1.65; color: #444;
+    border-left: 4px solid #667eea;
+  }
+  .mode-explanation > strong { color: #667eea; display: block; margin-bottom: 8px; font-size: 0.95em; }
+  .mode-explanation .mode-item { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #dde1ff; }
+  .mode-explanation .mode-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .mode-explanation .mode-item strong { color: #333; }
+  .mode-explanation .mode-item small { display: block; color: #666; margin-top: 3px; }
+
+  .session-box {
+    background: #f8f9ff; border: 2px dashed #667eea; border-radius: 12px;
+    padding: 15px; margin: 15px 0; text-align: left;
+  }
+  .session-info { display: flex; align-items: center; gap: 8px; font-size: 0.95em; color: #444; flex-wrap: wrap;}
+  .session-info strong { color: #667eea; font-family: monospace; font-size: 1.1em; background: #e8ecff; padding: 2px 8px; border-radius: 6px;}
+  .session-btn { background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 0.85em; margin-top: 10px; width: 100%; font-weight: bold; transition: 0.2s;}
+  .session-btn:hover { background: #764ba2; }
+
+  .input-group { text-align: left; margin-bottom: 15px; }
+  .input-group label { display: block; font-size: 0.9em; font-weight: 600; color: #444; margin-bottom: 5px; }
+  .input-group input { 
+    width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em; outline: none; transition: 0.2s;
+  }
+  .input-group input:focus { border-color: #667eea; box-shadow: 0 0 5px rgba(102,126,234,0.3); }
+
+  .progress-bar { height: 8px; background: #eee; border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); width: 0%; transition: width 0.3s ease; }
+  .info-row { display: flex; justify-content: space-between; font-size: 0.85em; color: #666; margin-bottom: 12px; font-weight: 600; }
+  .timer-box {
+    background: #fff3cd; color: #856404; padding: 4px 12px; border-radius: 20px;
+    font-weight: 700; font-size: 0.85em; transition: all 0.2s;
+  }
+  .timer-box.warning { background: #f8d7da; color: #721c24; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.08);} }
+
+  .question {
+    font-size: 1.05em; color: #222; margin-bottom: 20px; line-height: 1.75;
+    min-height: 60px; white-space: pre-line;
+  }
+  .options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .option {
+    padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px;
+    cursor: pointer; transition: all 0.2s; font-size: 1em; color: #333;
+    background: #fafafa; text-align: left; display: flex; align-items: center; gap: 10px;
+  }
+  .option:hover:not(.disabled) { border-color: #667eea; background: #f0f2ff; transform: translateX(4px); }
+  .option .label { font-weight: 700; color: #667eea; min-width: 22px; }
+  .option.correct { background: #d4edda; border-color: #28a745; color: #155724; }
+  .option.correct .label { color: #28a745; }
+  .option.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+  .option.wrong .label { color: #dc3545; }
+  .option.disabled { cursor: not-allowed; }
+  .option.selected { border-color: #667eea; background: #e8ecff; }
+
+  .feedback {
+    padding: 12px 14px; border-radius: 10px; font-weight: 600;
+    margin-bottom: 15px; display: none; text-align: left; line-height: 1.6;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct { background: #d4edda; color: #155724; }
+  .feedback.wrong { background: #f8d7da; color: #721c24; }
+  .feedback small { display: block; margin-top: 6px; font-weight: 400; opacity: 0.85; }
+
+  .btn {
+    width: 100%; padding: 14px; border: none; border-radius: 12px;
+    font-size: 1em; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    background: linear-gradient(90deg, #667eea, #764ba2); color: #fff;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102,126,234,0.4); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn.secondary { background: #eee; color: #333; }
+  .btn.secondary:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+  .btn-row { display: flex; gap: 10px; }
+
+  .result-screen { text-align: center; display: none; }
+  .result-screen.show { display: block; }
+  .score-big {
+    font-size: 3.5em; font-weight: 800;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin: 10px 0;
+  }
+  .result-detail { color: #666; margin-bottom: 20px; font-size: 1.05em; line-height: 1.6; }
+  .review-list { text-align: left; margin-top: 20px; max-height: 420px; overflow-y: auto; }
+  .review-item { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9em; }
+  .review-item.correct { border-left: 4px solid #28a745; }
+  .review-item.wrong { border-left: 4px solid #dc3545; }
+  .review-q { font-weight: 600; margin-bottom: 4px; color: #333; white-space: pre-line; }
+  .review-a { color: #666; font-size: 0.9em; }
+  .review-a .ok { color: #28a745; font-weight: 700; }
+  .review-a .no { color: #dc3545; font-weight: 700; }
+  .review-p {
+    color: #444; margin-top: 6px; font-size: 0.88em;
+    background: #f8f9ff; padding: 8px 10px; border-radius: 6px;
+    border-left: 3px solid #667eea;
+  }
+
+  .lb-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.92em; }
+  .lb-table th, .lb-table td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #eee; }
+  .lb-table th { background: #f0f2ff; color: #667eea; font-weight: 700; }
+  .lb-table tr:nth-child(1) td { font-weight: 700; color: #b8860b; }
+  .lb-empty { color: #999; text-align: center; padding: 30px; font-style: italic; }
+
+  .hidden { display: none !important; }
+
+  .countdown-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; justify-content: center; align-items: center;
+    background: linear-gradient(135deg, rgba(102,126,234,0.97) 0%, rgba(118,75,162,0.97) 100%);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); overflow: hidden;
+  }
+  .countdown-overlay::before {
+    content: ''; position: absolute; width: 140vmax; height: 140vmax;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 62%);
+    animation: countdownGlow 3.6s ease-in-out infinite;
+  }
+  @keyframes countdownGlow {
+    0%, 100% { transform: scale(1); opacity: 0.55; }
+    50%      { transform: scale(1.12); opacity: 0.9; }
+  }
+  .countdown-number {
+    position: relative; font-family: 'Segoe UI', 'Hiragino Sans', sans-serif;
+    font-size: clamp(5rem, 24vw, 12rem); font-weight: 900; line-height: 1; color: #fff;
+    text-shadow: 0 12px 45px rgba(0,0,0,0.35), 0 0 70px rgba(255,255,255,0.30);
+    user-select: none; will-change: transform, opacity;
+  }
+  .countdown-number.word {
+    font-size: clamp(2.6rem, 11vw, 5.5rem); letter-spacing: 8px; padding-left: 8px;
+    background: linear-gradient(90deg, #ffffff 0%, #ffe680 55%, #ffd24d 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.35));
+  }
+  .countdown-number.pop { animation: countdownPop 0.62s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+  @keyframes countdownPop {
+    0%   { transform: scale(0.30); opacity: 0; }
+    55%  { transform: scale(1.14); opacity: 1; }
+    78%  { transform: scale(0.98); }
+    100% { transform: scale(1);    opacity: 1; }
+  }
+  .countdown-hint {
+    position: absolute; bottom: 12%; width: 100%; text-align: center;
+    color: rgba(255,255,255,0.85); font-size: 0.95em; font-weight: 600;
+    letter-spacing: 1px; animation: hintFade 1.4s ease-in-out infinite;
+  }
+  @keyframes hintFade { 0%,100%{opacity:0.45;} 50%{opacity:1;} }
+
+  @media (max-width: 500px) {
+    .container { padding: 20px; }
+    h1 { font-size: 1.2em; }
+    .question { font-size: 1em; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div id="menu-screen" class="menu">
+    <h1>🇯🇵 Latihan Kanji JLPT N5–N4</h1>
+    <p class="subtitle" id="menu-subtitle">0 Soal • Referensi JLPT</p>
+    
+    <div class="badge-row">
+      <span class="badge" id="timer-badge">⏱️ Min 30s</span>
+      <span class="badge">🔀 Soal Acak</span>
+      <span class="badge">🏆 Leaderboard</span>
+      <span class="badge">🔊 Suara</span>
+    </div>
+
+    <div class="session-box">
+      <div class="session-info">
+        🗂️ Sesi Aktif: <strong id="session-id-display">Memuat...</strong>
+      </div>
+      <p style="font-size: 0.8em; color: #666; margin-top: 8px;">
+        *Klik tombol di bawah untuk menyalin link sesi ini dan bagikan ke siswa.
+      </p>
+      <button class="session-btn" id="copy-session-btn">📋 Salin Link Sesi</button>
+    </div>
+
+    <div class="input-group">
+      <label>Nama Siswa</label>
+      <input type="text" id="student-name" placeholder="Masukkan nama lengkap..." />
+    </div>
+    <div class="input-group">
+      <label>Kelas</label>
+      <input type="text" id="student-class" placeholder="Contoh: X-A / XII IPA 1" />
+    </div>
+
+    <p class="menu-desc">Pilih mode di bawah ini:</p>
+
+    <div class="mode-explanation">
+      <strong>📖 Penjelasan Mode Latihan &amp; Ujian</strong>
+      <div class="mode-item">
+        <strong>🎯 Mode Latihan (Feedback Langsung)</strong>
+        <small>Setelah memilih jawaban, kamu langsung melihat benar/salah + penjelasan singkat.</small>
+      </div>
+      <div class="mode-item">
+        <strong>📊 Mode Ujian (Hasil di Akhir)</strong>
+        <small>Jawaban tidak diberi feedback selama quiz. Skor muncul setelah selesai.</small>
+      </div>
+      <div class="mode-item">
+        <strong>⏱️ Countdown 3-2-1-MULAI</strong>
+        <small>Setiap kali memilih mode, muncul hitungan mundur 3 → 2 → 1 → MULAI.</small>
+      </div>
+      <div class="mode-item">
+        <strong>📤 Laporan Otomatis</strong>
+        <small>Nilai otomatis dikirim ke Google Sheets dan Email Guru.</small>
+      </div>
+    </div>
+
+    <button class="btn" id="start-normal-btn">🎯 Mode Latihan (Feedback Langsung)</button>
+    <button class="btn secondary" id="start-exam-btn">📊 Mode Ujian (Hasil di Akhir)</button>
+    <button class="btn secondary" id="show-lb-btn">🏆 Lihat Leaderboard</button>
+  </div>
+
+  <div id="quiz-screen" class="hidden">
+    <div class="info-row">
+      <span id="progress-text">Soal 1 / 0</span>
+      <span id="timer-display" class="timer-box">⏱️ 30s</span>
+      <span id="score-text">Skor: 0</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="question" id="question-text"></div>
+    <div class="options" id="options-container"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="btn" id="next-btn" disabled>Lanjut →</button>
+  </div>
+
+  <div id="result-screen" class="result-screen">
+    <h1>🎉 Selesai!</h1>
+    <div class="score-big" id="final-score">0</div>
+    <p class="result-detail" id="final-detail"></p>
+    <p id="send-status" style="color: #667eea; font-weight: 600; font-size: 0.9em; margin-bottom: 10px;"></p>
+    <div class="review-list" id="review-list"></div>
+    <div class="btn-row" style="margin-top:20px;">
+      <button class="btn" id="restart-btn">🔄 Ulangi Quiz</button>
+      <button class="btn secondary" id="back-menu-btn">🏠 Menu</button>
+    </div>
+  </div>
+
+  <div id="lb-screen" class="hidden">
+    <h1>🏆 Leaderboard</h1>
+    <p class="subtitle">Top 10 skor terbaik (tersimpan di browser ini)</p>
+    <div id="lb-content"></div>
+    <div class="btn-row" style="margin-top:20px;">
+      <button class="btn secondary" id="clear-lb-btn">🗑️ Hapus Semua</button>
+      <button class="btn" id="lb-back-btn">🏠 Menu</button>
+    </div>
+  </div>
+
+</div>
+
+<div id="countdown-overlay" class="countdown-overlay hidden">
+  <div class="countdown-number" id="countdown-number">3</div>
+  <div class="countdown-hint">Bersiap... がんばって！</div>
+</div>
+
+<script>
+// ============================================================
+// ====== KONFIGURASI ======
+// ============================================================
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzchFXTfmfn1RN43CHNqZ5Qa67nsHjiWtGZiud5F8vmJXBq81xsiJMb1yWlqXEGOe3URg/exec';
+
+const CONFIG = {
+  minTimePerQuestion: 30,
+  maxTimePerQuestion: 120,
+  timePerQuestion: 0,
+  shuffleQuestions: true,
+  shuffleOptions: false,
+  soundEnabled: true,
+  leaderboardKey: 'kanji_jlpt_n5n4_leaderboard_v1',
+  maxLeaderboard: 10,
+  examModeDefault: false
+};
+
+let studentName = "";
+let studentClass = "";
+
+function getSessionInfo() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlSesi = urlParams.get('sesi');
+  if (urlSesi) return urlSesi.replace(/[^a-zA-Z0-9_\-]/g, '');
+  const now = new Date();
+  const dateStr = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
+  return `SESI-${dateStr}`;
+}
+let CURRENT_SESSION = getSessionInfo();
+
+// ============================================================
+// ====== PASSAGES (kosong — tidak ada soal dokkai) ===========
+// ============================================================
+const PASSAGES = {};
+
+// ============================================================
+// ====== RAW_QUESTIONS — 50 Soal Kanji JLPT N5–N4 ============
+// ============================================================
+const RAW_QUESTIONS = [
+  // ===== Bagian I: Pilih Bacaan yang Benar (1–15) =====
+  { id:1, type:'kotoba_kanji',
+    question:`毎日 学校へ行きます。\n\n「学校」の読み方を えらんでください。`,
+    options:{A:`がっこ`, B:`がっこう`, C:`がこう`, D:`かっこう`},
+    answer:'B',
+    explanation:`「学校（がっこう）」= sekolah. Bacaan yang benar adalah がっこう.` },
+
+  { id:2, type:'kotoba_kanji',
+    question:`昨日、友達と映画を見ました。\n\n「昨日」の読み方を えらんでください。`,
+    options:{A:`ゆうがた`, B:`きのう`, C:`おととい`, D:`さきおととい`},
+    answer:'B',
+    explanation:`「昨日（きのう）」= kemarin. 「おととい」adalah 一昨日 (kemarin lusa).` },
+
+  { id:3, type:'kotoba_kanji',
+    question:`先生に質問します。\n\n「先生」の読み方を えらんでください。`,
+    options:{A:`せんせい`, B:`せんせ`, C:`せいせい`, D:`せんぜい`},
+    answer:'A',
+    explanation:`「先生（せんせい）」= guru.` },
+
+  { id:4, type:'kotoba_kanji',
+    question:`新しい車を買いました。\n\n「新しい」の読み方を えらんでください。`,
+    options:{A:`あたらしい`, B:`あらたしい`, C:`しんしい`, D:`にいしい`},
+    answer:'A',
+    explanation:`「新しい（あたらしい）」= baru.` },
+
+  { id:5, type:'kotoba_kanji',
+    question:`電車で会社へ行きます。\n\n「電車」の読み方を えらんでください。`,
+    options:{A:`てんしゃ`, B:`でんしゃ`, C:`でんじゃ`, D:`てんじゃ`},
+    answer:'B',
+    explanation:`「電車（でんしゃ）」= kereta listrik.` },
+
+  { id:6, type:'kotoba_kanji',
+    question:`この料理はとても美味しいです。\n\n「料理」の読み方を えらんでください。`,
+    options:{A:`りょり`, B:`ろうり`, C:`りょうり`, D:`りゅうり`},
+    answer:'C',
+    explanation:`「料理（りょうり）」= masakan. Perhatikan bunyi panjang ょう.` },
+
+  { id:7, type:'kotoba_kanji',
+    question:`山の上から海が見えます。\n\n「山の上」の「上」の読み方を えらんでください。`,
+    options:{A:`うえ`, B:`かみ`, C:`じょう`, D:`のぼり`},
+    answer:'A',
+    explanation:`「山の上（やまのうえ）」= di atas gunung. Bacaan 上 = うえ.` },
+
+  { id:8, type:'kotoba_kanji',
+    question:`弟は毎朝新聞を読みます。\n\n「新聞」の読み方を えらんでください。`,
+    options:{A:`しんぶん`, B:`しんぷん`, C:`じんぶん`, D:`しんもん`},
+    answer:'A',
+    explanation:`「新聞（しんぶん）」= koran.` },
+
+  { id:9, type:'kotoba_kanji',
+    question:`切符を買ってから入ります。\n\n「切符」の読み方を えらんでください。`,
+    options:{A:`きっぷ`, B:`きふ`, C:`せつぷ`, D:`きいぷ`},
+    answer:'A',
+    explanation:`「切符（きっぷ）」= tiket. Perhatikan bunyi sokuon っ.` },
+
+  { id:10, type:'kotoba_kanji',
+    question:`白い雪が降っています。\n\n「雪」の読み方を えらんでください。`,
+    options:{A:`ゆき`, B:`せつ`, C:`すず`, D:`よき`},
+    answer:'A',
+    explanation:`「雪（ゆき）」= salju. 「せつ」adalah on-yomi (dipakai dalam 降雪 こうせつ).` },
+
+  { id:11, type:'kotoba_kanji',
+    question:`来週の火曜日に会いましょう。\n\n「火曜日」の読み方を えらんでください。`,
+    options:{A:`かようび`, B:`ひようび`, C:`かようひ`, D:`かよび`},
+    answer:'A',
+    explanation:`「火曜日（かようび）」= hari Selasa.` },
+
+  { id:12, type:'kotoba_kanji',
+    question:`頭が痛いです。\n\n「頭」の読み方を えらんでください。`,
+    options:{A:`あたま`, B:`かしら`, C:`とう`, D:`ず`},
+    answer:'A',
+    explanation:`「頭（あたま）」= kepala. 「とう」adalah on-yomi (頭痛 ずつう).` },
+
+  { id:13, type:'kotoba_kanji',
+    question:`銀行は駅の前です。\n\n「銀行」の読み方を えらんでください。`,
+    options:{A:`ぎんこう`, B:`ぎんこ`, C:`きんこう`, D:`ぎんぎょう`},
+    answer:'A',
+    explanation:`「銀行（ぎんこう）」= bank.` },
+
+  { id:14, type:'kotoba_kanji',
+    question:`妹は音楽が好きです。\n\n「音楽」の読み方を えらんでください。`,
+    options:{A:`おんがく`, B:`おんかく`, C:`いんがく`, D:`おんがっ`},
+    answer:'A',
+    explanation:`「音楽（おんがく）」= musik.` },
+
+  { id:15, type:'kotoba_kanji',
+    question:`毎日漢字を練習します。\n\n「漢字」の読み方を えらんでください。`,
+    options:{A:`かんじ`, B:`かんぢ`, C:`かんし`, D:`がんじ`},
+    answer:'A',
+    explanation:`「漢字（かんじ）」= huruf kanji.` },
+
+  // ===== Bagian II: Pilih Kanji yang Benar (16–30) =====
+  { id:16, type:'kotoba_kanji',
+    question:`あしたは あめが ふるでしょう。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`明日は雨が降るでしょう`, B:`明日は雨が古るでしょう`, C:`明曰は雨が降るでしょう`, D:`明日は雨が降りますでしょう`},
+    answer:'A',
+    explanation:`明日（あした）・雨（あめ）・降る（ふる）. 「古」≠「降」dan「曰」≠「日」.` },
+
+  { id:17, type:'kotoba_kanji',
+    question:`わたしは にほんごを べんきょうします。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`私は日本語を勉強します`, B:`私は日本語を免強します`, C:`私は日本語を勉張します`, D:`我和日本語を勉強します`},
+    answer:'A',
+    explanation:`私（わたし）・日本語・勉強（べんきょう）. 「免」「張」「和」salah.` },
+
+  { id:18, type:'kotoba_kanji',
+    question:`えきの ちかくに ほんやが あります。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`駅の近くに本屋があります`, B:`駅の近くに木屋があります`, C:`職の近くに本屋があります`, D:`駅の返くに本屋があります`},
+    answer:'A',
+    explanation:`駅（えき）・近く（ちかく）・本屋（ほんや）. 「木」「職」「返」salah.` },
+
+  { id:19, type:'kotoba_kanji',
+    question:`あの やまは たかいです。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`あの山は高いです`, B:`あの山は高ぃです`, C:`あの出は高いです`, D:`あの山は髙いです`},
+    answer:'A',
+    explanation:`山（やま）・高い（たかい）. 「出」salah, 「髙」adalah varian tidak standar.` },
+
+  { id:20, type:'kotoba_kanji',
+    question:`でんわを かけてください。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`電話をかけてください`, B:`田話をかけてください`, C:`電話を掛けてください`, D:`雷話をかけてください`},
+    answer:'A',
+    explanation:`電話（でんわ）. 「田」「雷」salah sebagai pengganti 電.` },
+
+  { id:21, type:'kotoba_kanji',
+    question:`こんばんは はやく ねましょう。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`今晩は早く寝ましょう`, B:`今晩は早く眠ましょう`, C:`今晩は草く寝ましょう`, D:`今晩は早く寢ましょう`},
+    answer:'A',
+    explanation:`今晩（こんばん）・早く（はやく）・寝る（ねる）. 「眠」dibaca ねむる, 「草」salah, 「寢」varian lama.` },
+
+  { id:22, type:'kotoba_kanji',
+    question:`ともだちと あそびました。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`友達と遊びました`, B:`友達と遊ひました`, C:`友逹と遊びました`, D:`友達と進びました`},
+    answer:'A',
+    explanation:`友達（ともだち）・遊ぶ（あそぶ）. 「ひ」「逹」「進」salah.` },
+
+  { id:23, type:'kotoba_kanji',
+    question:`この みちは せまいです。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`この道は狭いです`, B:`この道は侠いです`, C:`この通は狭いです`, D:`この道は峽いです`},
+    answer:'A',
+    explanation:`道（みち）・狭い（せまい）. 「侠」「通」「峽」salah.` },
+
+  { id:24, type:'kotoba_kanji',
+    question:`あたらしい くつを かいました。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`新しい靴を買いました`, B:`親しい靴を買いました`, C:`新しい靴を売いました`, D:`新しい鞄を買いました`},
+    answer:'A',
+    explanation:`新しい（あたらしい）・靴（くつ）・買う（かう）. 「親」「売」「鞄」salah.` },
+
+  { id:25, type:'kotoba_kanji',
+    question:`きょうは てんきが いいですね。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`今日は天気がいいですね`, B:`今日は夫気がいいですね`, C:`今曰は天気がいいですね`, D:`今日は夭気がいいですね`},
+    answer:'A',
+    explanation:`今日（きょう）・天気（てんき）. 「夫」「曰」「夭」salah.` },
+
+  { id:26, type:'kotoba_kanji',
+    question:`ははは りょうりが じょうずです。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`母は料理が上手です`, B:`母は科理が上手です`, C:`毎は料理が上手です`, D:`母は料埋が上手です`},
+    answer:'A',
+    explanation:`母（はは）・料理（りょうり）・上手（じょうず）. 「科」「毎」「埋」salah.` },
+
+  { id:27, type:'kotoba_kanji',
+    question:`えいがを みに いきましょう。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`映画を見に行きましょう`, B:`映画を観に行きましょう`, C:`映畫を見に行きましょう`, D:`映画を見に往きましょう`},
+    answer:'A',
+    explanation:`映画（えいが）・見る（みる）・行く（いく）. 「観」valid tapi kurang standar di N5-N4, 「畫」「往」salah.` },
+
+  { id:28, type:'kotoba_kanji',
+    question:`つぎの しゅうまつは いそがしいです。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`次の週末は忙しいです`, B:`次の週末は忘しいです`, C:`次の週未は忙しいです`, D:`次乃週末は忙しいです`},
+    answer:'A',
+    explanation:`次（つぎ）・週末（しゅうまつ）・忙しい（いそがしい）. 「忘」「未」「乃」salah.` },
+
+  { id:29, type:'kotoba_kanji',
+    question:`みずを のみます。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`水を飲みます`, B:`水を飮みます`, C:`氷を飲みます`, D:`水を飲ます`},
+    answer:'A',
+    explanation:`水（みず）・飲む（のむ）. 「飮」varian lama, 「氷」= es, 「飲ます」salah bentuk.` },
+
+  { id:30, type:'kotoba_kanji',
+    question:`そとは さむいです。\n\n正しい漢字の文を えらんでください。`,
+    options:{A:`外は寒いです`, B:`外は寒ぃです`, C:`処は寒いです`, D:`外は塞いです`},
+    answer:'A',
+    explanation:`外（そと）・寒い（さむい）. 「処」「塞」salah.` },
+
+  // ===== Bagian III: Pilih Kanji yang Tepat (31–40) =====
+  { id:31, type:'kotoba_kanji',
+    question:`わたしは まいにち「でんしゃ」で かいしゃへ いきます。\n\n「でんしゃ」の漢字を えらんでください。`,
+    options:{A:`電車`, B:`雷車`, C:`電者`, D:`電池`},
+    answer:'A',
+    explanation:`「電車（でんしゃ）」= kereta listrik.` },
+
+  { id:32, type:'kotoba_kanji',
+    question:`「しゅくだい」を しましたか。\n\n「しゅくだい」の漢字を えらんでください。`,
+    options:{A:`宿題`, B:`宿提`, C:`縮題`, D:`宿諦`},
+    answer:'A',
+    explanation:`「宿題（しゅくだい）」= pekerjaan rumah.` },
+
+  { id:33, type:'kotoba_kanji',
+    question:`この「みせ」は やすいです。\n\n「みせ」の漢字を えらんでください。`,
+    options:{A:`店`, B:`庭`, C:`度`, D:`座`},
+    answer:'A',
+    explanation:`「店（みせ）」= toko.` },
+
+  { id:34, type:'kotoba_kanji',
+    question:`「ちいさい」とき、よく あそびました。\n\n「ちいさい」の漢字を えらんでください。`,
+    options:{A:`小さい`, B:`少さい`, C:`犬さい`, D:`尖さい`},
+    answer:'A',
+    explanation:`「小さい（ちいさい）」= kecil. 「少」= sedikit (すくない).` },
+
+  { id:35, type:'kotoba_kanji',
+    question:`「あおい」そらが きれいです。\n\n「あおい」の漢字を えらんでください。`,
+    options:{A:`青い`, B:`肯い`, C:`育い`, D:`静い`},
+    answer:'A',
+    explanation:`「青い（あおい）」= biru.` },
+
+  { id:36, type:'kotoba_kanji',
+    question:`でんしゃの「まど」を あけてください。\n\n「まど」の漢字を えらんでください。`,
+    options:{A:`窓`, B:`窟`, C:`恋`, D:`意`},
+    answer:'A',
+    explanation:`「窓（まど）」= jendela.` },
+
+  { id:37, type:'kotoba_kanji',
+    question:`「ちず」を みながら あるきました。\n\n「ちず」の漢字を えらんでください。`,
+    options:{A:`地図`, B:`知図`, C:`池図`, D:`地斗`},
+    answer:'A',
+    explanation:`「地図（ちず）」= peta.` },
+
+  { id:38, type:'kotoba_kanji',
+    question:`この「もんだい」は むずかしいです。\n\n「もんだい」の漢字を えらんでください。`,
+    options:{A:`問題`, B:`問亭`, C:`門題`, D:`問提`},
+    answer:'A',
+    explanation:`「問題（もんだい）」= soal/masalah.` },
+
+  { id:39, type:'kotoba_kanji',
+    question:`「ぎんこう」で おかねを おろします。\n\n「ぎんこう」の漢字を えらんでください。`,
+    options:{A:`銀行`, B:`銀光`, C:`艮行`, D:`銀工`},
+    answer:'A',
+    explanation:`「銀行（ぎんこう）」= bank.` },
+
+  { id:40, type:'kotoba_kanji',
+    question:`あの「たてもの」は びょういんです。\n\n「たてもの」の漢字を えらんでください。`,
+    options:{A:`建物`, B:`健物`, C:`建勿`, D:`律物`},
+    answer:'A',
+    explanation:`「建物（たてもの）」= bangunan.` },
+
+  // ===== Bagian IV: Pilih Arti yang Benar (41–50) =====
+  { id:41, type:'kotoba_kanji',
+    question:`「約束」の意味を えらんでください。`,
+    options:{A:`janji`, B:`undangan`, C:`hadiah`, D:`pertemuan`},
+    answer:'A',
+    explanation:`「約束（やくそく）」= janji.` },
+
+  { id:42, type:'kotoba_kanji',
+    question:`「準備」の意味を えらんでください。`,
+    options:{A:`persiapan`, B:`perjalanan`, C:`pekerjaan`, D:`kebersihan`},
+    answer:'A',
+    explanation:`「準備（じゅんび）」= persiapan.` },
+
+  { id:43, type:'kotoba_kanji',
+    question:`「運転」の意味を えらんでください。`,
+    options:{A:`mengemudi`, B:`berolahraga`, C:`berlari`, D:`berenang`},
+    answer:'A',
+    explanation:`「運転（うんてん）」= mengemudi / menjalankan kendaraan.` },
+
+  { id:44, type:'kotoba_kanji',
+    question:`「経験」の意味を えらんでください。`,
+    options:{A:`pengalaman`, B:`pelajaran`, C:`penelitian`, D:`perjalanan`},
+    answer:'A',
+    explanation:`「経験（けいけん）」= pengalaman.` },
+
+  { id:45, type:'kotoba_kanji',
+    question:`「相談」の意味を えらんでください。`,
+    options:{A:`konsultasi/berdiskusi`, B:`berteriak`, C:`bernyanyi`, D:`menangis`},
+    answer:'A',
+    explanation:`「相談（そうだん）」= konsultasi / berdiskusi.` },
+
+  { id:46, type:'kotoba_kanji',
+    question:`「案内」の意味を えらんでください。`,
+    options:{A:`memandu/menunjukkan jalan`, B:`menjual`, C:`membeli`, D:`memasak`},
+    answer:'A',
+    explanation:`「案内（あんない）」= memandu / menunjukkan jalan.` },
+
+  { id:47, type:'kotoba_kanji',
+    question:`「招待」の意味を えらんでください。`,
+    options:{A:`undangan`, B:`hadiah`, C:`perayaan`, D:`pertemuan`},
+    answer:'A',
+    explanation:`「招待（しょうたい）」= undangan.` },
+
+  { id:48, type:'kotoba_kanji',
+    question:`「遠慮」の意味を えらんでください。`,
+    options:{A:`menahan diri/sungkan`, B:`keberanian`, C:`kebebasan`, D:`kegembiraan`},
+    answer:'A',
+    explanation:`「遠慮（えんりょ）」= menahan diri / sungkan.` },
+
+  { id:49, type:'kotoba_kanji',
+    question:`「確認」の意味を えらんでください。`,
+    options:{A:`konfirmasi/pengecekan`, B:`perbaikan`, C:`peminjaman`, D:`pengembalian`},
+    answer:'A',
+    explanation:`「確認（かくにん）」= konfirmasi / pengecekan.` },
+
+  { id:50, type:'kotoba_kanji',
+    question:`「感謝」の意味を えらんでください。`,
+    options:{A:`rasa terima kasih`, B:`kemarahan`, C:`kesedihan`, D:`ketakutan`},
+    answer:'A',
+    explanation:`「感謝（かんしゃ）」= rasa terima kasih.` }
+];
+
+// ============================================================
+// ====== MAPPING OTOMATIS ====================================
+// ============================================================
+const QUESTIONS = RAW_QUESTIONS.map(rq => {
+  const OPT_KEYS = ['A','B','C','D'];
+  const options = OPT_KEYS.map(k => rq.options[k]);
+  const ansIdx = OPT_KEYS.indexOf(rq.answer);
+  let qText = rq.question;
+  let t = rq.t;
+
+  if (rq.passageId && PASSAGES[rq.passageId]) {
+    const passLen = PASSAGES[rq.passageId].length;
+    qText = `【読解 ${rq.passageId}】\n${PASSAGES[rq.passageId]}\n\n■ 質問：${rq.question}`;
+    if (!t) t = Math.min(120, 60 + Math.ceil(passLen / 5));
+  } else if (rq.type === 'hyougen') {
+    if (!t) t = 60;
+  }
+  return { q: qText, o: options, a: ansIdx, p: rq.explanation, t };
+});
+
+// ============================================================
+// ====== IDENTITAS UJIAN ======
+// ============================================================
+const EXAM_CONFIG = { idManual: '', namaManual: '' };
+
+function generateExamFingerprint() {
+  const str = JSON.stringify(QUESTIONS.map(q => ({ q: q.q, o: q.o, a: q.a })));
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+    hash = hash & hash;
+  }
+  return 'UJIAN-' + Math.abs(hash).toString(36).toUpperCase();
+}
+
+function getExamInfo() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlUjian = urlParams.get('ujian');
+  const urlNama = urlParams.get('nama');
+  if (urlUjian) {
+    return { id: urlUjian.replace(/[^a-zA-Z0-9_\-]/g, ''), nama: urlNama || urlUjian, auto: false };
+  }
+  if (EXAM_CONFIG.idManual) {
+    return { id: EXAM_CONFIG.idManual, nama: EXAM_CONFIG.namaManual || EXAM_CONFIG.idManual, auto: false };
+  }
+  const fp = generateExamFingerprint();
+  return { id: fp, nama: `Ujian ${fp.replace('UJIAN-', '')}`, auto: true };
+}
+let CURRENT_EXAM = getExamInfo();
+
+function updateSessionUI() {
+  document.getElementById('session-id-display').textContent = CURRENT_SESSION;
+  const box = document.querySelector('.session-box');
+  if (box && !document.getElementById('exam-info-display')) {
+    const div = document.createElement('div');
+    div.id = 'exam-info-display';
+    div.style.cssText = 'margin-top:10px;padding-top:10px;border-top:1px dashed #dde1ff;font-size:0.85em;color:#555;';
+    div.innerHTML = `📝 Ujian: <strong style="color:#667eea;">${CURRENT_EXAM.nama}</strong><br>
+      <span style="font-size:0.9em;color:#888;">ID: <code>${CURRENT_EXAM.id}</code>
+      ${CURRENT_EXAM.auto ? '(otomatis dari soal)' : '(manual)'}</span>`;
+    box.appendChild(div);
+  }
+}
+
+function copySessionLink() {
+  const url = new URL(window.location.href);
+  url.searchParams.set('sesi', CURRENT_SESSION);
+  url.searchParams.set('ujian', CURRENT_EXAM.id);
+  url.searchParams.set('nama', CURRENT_EXAM.nama);
+  const link = url.toString();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(link).then(() => {
+      alert('✅ Link Ujian Berhasil Disalin!\n\n📝 Ujian: ' + CURRENT_EXAM.nama
+        + '\n🗂️ ID: ' + CURRENT_EXAM.id
+        + '\n🔗 Sesi: ' + CURRENT_SESSION
+        + '\n\nLink:\n' + link);
+    }).catch(() => prompt('Salin link ini secara manual:', link));
+  } else {
+    prompt('Salin link ini secara manual:', link);
+  }
+}
+
+// ============================================================
+// ====== LOGIKA QUIZ ======
+// ============================================================
+const LABELS = ['A','B','C','D'];
+let current = 0, score = 0, answered = false;
+let order = [], userAnswers = [], examMode = false;
+let timerInterval = null, timeLeft = 0;
+let currentQ = null;
+
+function getQuestionTime(q) {
+  if (q.t && q.t > 0) return Math.max(CONFIG.minTimePerQuestion, q.t);
+  if (CONFIG.timePerQuestion > 0) return CONFIG.timePerQuestion;
+  const qLen = (q.q || '').length;
+  const oLen = (q.o || []).reduce((s, o) => s + (o || '').length, 0);
+  const totalLen = qLen + oLen;
+  const extra = Math.max(0, Math.ceil((totalLen - 80) / 20));
+  return Math.min(CONFIG.minTimePerQuestion + extra, CONFIG.maxTimePerQuestion);
+}
+
+let audioCtx = null;
+function initAudio() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch(e) { audioCtx = null; }
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume().catch(() => {});
+  }
+}
+function playTone(freq, duration, type='sine', vol=0.15) {
+  if (!CONFIG.soundEnabled || !audioCtx) return;
+  try {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.start(); osc.stop(audioCtx.currentTime + duration);
+  } catch(e) {}
+}
+function soundCorrect() { initAudio(); playTone(660,0.12,'sine'); setTimeout(()=>playTone(880,0.18,'sine'),110); }
+function soundWrong()   { initAudio(); playTone(220,0.25,'sawtooth',0.12); }
+function soundTick()    { if (!CONFIG.soundEnabled || !audioCtx) return; playTone(1000,0.05,'square',0.05); }
+function soundCountdownBeep() { playTone(560, 0.14, 'sine', 0.13); }
+function soundCountdownGo() {
+  playTone(880, 0.15, 'sine', 0.16);
+  setTimeout(() => playTone(1180, 0.18, 'sine', 0.16), 120);
+  setTimeout(() => playTone(1480, 0.30, 'sine', 0.14), 250);
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function showScreen(id) {
+  ['menu-screen','quiz-screen','result-screen','lb-screen'].forEach(s => {
+    document.getElementById(s).classList.add('hidden');
+    document.getElementById(s).classList.remove('show');
+  });
+  document.getElementById(id).classList.remove('hidden');
+  if (id === 'result-screen') document.getElementById(id).classList.add('show');
+}
+
+let countdownActive = false;
+
+function runCountdown(onFinish) {
+  const overlay = document.getElementById('countdown-overlay');
+  const numEl   = document.getElementById('countdown-number');
+  if (!overlay || !numEl) {
+    if (typeof onFinish === 'function') onFinish();
+    return;
+  }
+  countdownActive = true;
+  const steps     = ['3', '2', '1', 'MULAI'];
+  const durations = [800, 800, 800, 950];
+  overlay.classList.remove('hidden');
+  let idx = 0;
+  function showStep() {
+    if (idx >= steps.length) {
+      overlay.classList.add('hidden');
+      countdownActive = false;
+      if (typeof onFinish === 'function') onFinish();
+      return;
+    }
+    const val = steps[idx];
+    numEl.textContent = val;
+    numEl.classList.toggle('word', val === 'MULAI');
+    numEl.classList.remove('pop');
+    void numEl.offsetWidth;
+    numEl.classList.add('pop');
+    if (val === 'MULAI') soundCountdownGo();
+    else                 soundCountdownBeep();
+    const wait = durations[idx];
+    idx++;
+    setTimeout(showStep, wait);
+  }
+  showStep();
+}
+
+function startQuiz(isExam) {
+  if (countdownActive) return;
+  studentName  = document.getElementById('student-name').value.trim();
+  studentClass = document.getElementById('student-class').value.trim();
+  if (!studentName || !studentClass) {
+    alert("Mohon isi Nama dan Kelas terlebih dahulu!");
+    return;
+  }
+  if (QUESTIONS.length === 0) {
+    alert('Belum ada soal.');
+    return;
+  }
+  initAudio();
+  examMode = isExam;
+  current = 0; score = 0; answered = false;
+  userAnswers = [];
+  order = CONFIG.shuffleQuestions
+    ? shuffle(QUESTIONS.map((_, i) => i))
+    : QUESTIONS.map((_, i) => i);
+  showScreen('quiz-screen');
+  runCountdown(() => { renderQuestion(); });
+}
+
+function renderQuestion() {
+  answered = false;
+  const qIdx = order[current];
+  let q = QUESTIONS[qIdx];
+  let options = q.o.slice();
+  let correct = q.a;
+  if (CONFIG.shuffleOptions) {
+    const pairs = options.map((opt, i) => ({ opt, isCorrect: i === correct }));
+    const shuffled = shuffle(pairs);
+    options = shuffled.map(p => p.opt);
+    correct = shuffled.findIndex(p => p.isCorrect);
+  }
+  q = { ...q, o: options, a: correct };
+  currentQ = q;
+  document.getElementById('question-text').textContent = q.q;
+  document.getElementById('progress-text').textContent = `Soal ${current + 1} / ${order.length}`;
+  document.getElementById('score-text').textContent = `Skor: ${score}`;
+  document.getElementById('progress-fill').style.width = `${(current / order.length) * 100}%`;
+  const container = document.getElementById('options-container');
+  container.innerHTML = '';
+  q.o.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = `<span class="label">${LABELS[i]}.</span> <span>${opt}</span>`;
+    btn.onclick = () => selectAnswer(i, q);
+    container.appendChild(btn);
+  });
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback';
+  fb.innerHTML = '';
+  document.getElementById('next-btn').disabled = true;
+  document.getElementById('next-btn').textContent = current === order.length - 1 ? 'Lihat Hasil →' : 'Lanjut →';
+  startTimer(q);
+}
+
+function startTimer(q) {
+  clearInterval(timerInterval);
+  const timerEl = document.getElementById('timer-display');
+  const total = getQuestionTime(q);
+  if (total <= 0) { timerEl.style.display = 'none'; return; }
+  timerEl.style.display = 'inline-block';
+  timeLeft = total;
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+    if (timeLeft <= 5 && timeLeft > 0) soundTick();
+    if (timeLeft <= 0) { clearInterval(timerInterval); timeOut(); }
+  }, 1000);
+}
+function updateTimerDisplay() {
+  const el = document.getElementById('timer-display');
+  el.textContent = `⏱️ ${timeLeft}s`;
+  el.classList.toggle('warning', timeLeft <= 5);
+}
+
+function timeOut() {
+  if (answered) return;
+  answered = true;
+  const q = currentQ;
+  const qIdx = order[current];
+  userAnswers.push({ qIdx, selected: -1, correct: q.a, isCorrect: false, timedOut: true });
+  document.querySelectorAll('.option').forEach((el, i) => {
+    el.classList.add('disabled');
+    if (i === q.a) el.classList.add('correct');
+  });
+  if (!examMode) {
+    soundWrong();
+    const fb = document.getElementById('feedback');
+    fb.className = 'feedback show wrong';
+    fb.innerHTML = `⏰ Waktu habis! Jawaban benar: <b>${LABELS[q.a]}. ${q.o[q.a]}</b>${q.p ? `<small>💡 ${q.p}</small>` : ''}`;
+  }
+  document.getElementById('next-btn').disabled = false;
+  document.getElementById('score-text').textContent = `Skor: ${score}`;
+}
+
+function selectAnswer(selected, q) {
+  if (answered) return;
+  answered = true;
+  clearInterval(timerInterval);
+  const qIdx = order[current];
+  const correct = q.a;
+  const options = document.querySelectorAll('.option');
+  if (examMode) {
+    options.forEach((el, i) => {
+      el.classList.add('disabled');
+      if (i === selected) el.classList.add('selected');
+    });
+    if (selected === correct) score++;
+    userAnswers.push({ qIdx, selected, correct, isCorrect: selected === correct });
+  } else {
+    options.forEach((el, i) => {
+      el.classList.add('disabled');
+      if (i === correct) el.classList.add('correct');
+      if (i === selected && i !== correct) el.classList.add('wrong');
+    });
+    const isCorrect = selected === correct;
+    if (isCorrect) { score++; soundCorrect(); } else soundWrong();
+    userAnswers.push({ qIdx, selected, correct, isCorrect });
+    const fb = document.getElementById('feedback');
+    fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
+    fb.innerHTML = isCorrect
+      ? `✅ Benar!${q.p ? `<small>💡 ${q.p}</small>` : ''}`
+      : `❌ Salah. Jawaban benar: <b>${LABELS[correct]}. ${q.o[correct]}</b>${q.p ? `<small>💡 ${q.p}</small>` : ''}`;
+  }
+  document.getElementById('score-text').textContent = `Skor: ${score}`;
+  document.getElementById('next-btn').disabled = false;
+}
+
+document.getElementById('next-btn').onclick = () => {
+  current++;
+  if (current >= order.length) showResult();
+  else renderQuestion();
+};
+
+function showResult() {
+  clearInterval(timerInterval);
+  showScreen('result-screen');
+  const pct = Math.round((score / order.length) * 100);
+  document.getElementById('final-score').textContent = `${score} / ${order.length}`;
+  let msg = '';
+  if (pct >= 90) msg = '🌟 Luar biasa! Pemahaman kamu sangat bagus!';
+  else if (pct >= 70) msg = '👍 Bagus! Sedikit lagi sempurna.';
+  else if (pct >= 50) msg = '💪 Cukup baik. Terus berlatih!';
+  else msg = '📚 Jangan menyerah. Ulangi dan pelajari lagi!';
+  document.getElementById('final-detail').innerHTML =
+    `${pct}% benar<br>${msg}<br><small style="color:#999;">Sesi: ${CURRENT_SESSION} | Mode: ${examMode ? 'Ujian' : 'Latihan'} | Siswa: ${studentName} (${studentClass})</small>`;
+  const list = document.getElementById('review-list');
+  list.innerHTML = '<h3 style="margin-bottom:10px;color:#333;">Review Jawaban &amp; Penjelasan:</h3>';
+  let wrongNumbers = [];
+  userAnswers.forEach((ua, i) => {
+    const q = QUESTIONS[ua.qIdx];
+    const div = document.createElement('div');
+    div.className = 'review-item ' + (ua.isCorrect ? 'correct' : 'wrong');
+    const yourAns = ua.selected === -1
+      ? '<span class="no">(tidak dijawab / waktu habis)</span>'
+      : `<span class="${ua.isCorrect ? 'ok' : 'no'}">${LABELS[ua.selected]}. ${q.o[ua.selected]}</span>`;
+    if (!ua.isCorrect) wrongNumbers.push(i + 1);
+    div.innerHTML = `
+      <div class="review-q">${i + 1}. ${q.q}</div>
+      <div class="review-a">
+        Jawabanmu: ${yourAns}
+        ${!ua.isCorrect ? ` | Benar: <span class="ok">${LABELS[ua.correct]}. ${q.o[ua.correct]}</span>` : ''}
+      </div>
+      ${q.p ? `<div class="review-p">💡 ${q.p}</div>` : ''}`;
+    list.appendChild(div);
+  });
+  saveToLeaderboard(score, order.length);
+  sendReportToGoogleSheets(score, order.length, pct, wrongNumbers.join(', '));
+}
+
+function sendReportToGoogleSheets(score, total, pct, wrongNumbers) {
+  const statusEl = document.getElementById('send-status');
+  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === 'URL_HASIL_DEPLOY_ANDA_DISINI') {
+    statusEl.textContent = "⚠️ Peringatan: URL Google Apps Script belum diatur.";
+    statusEl.style.color = "red";
+    return;
+  }
+  statusEl.textContent = "⏳ Mengirim laporan ke Google Sheets dan Email...";
+  statusEl.style.color = "#667eea";
+  const now = new Date();
+  const attemptId = 'ATT-' + now.getTime() + '-' + Math.random().toString(36).substring(2, 6);
+  const payload = {
+    sesi: CURRENT_SESSION,
+    ujianId: CURRENT_EXAM.id,
+    ujianNama: CURRENT_EXAM.nama,
+    attemptId,
+    tanggal: now.toLocaleDateString('id-ID'),
+    waktu: now.toLocaleTimeString('id-ID'),
+    nama: studentName,
+    kelas: studentClass,
+    kategori: "Kanji JLPT N5–N4",
+    mode: examMode ? "Ujian" : "Latihan",
+    skor: score, total, persentase: pct,
+    detailSalah: wrongNumbers || "Tidak ada"
+  };
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST', mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    statusEl.innerHTML = "✅ Laporan berhasil dikirim ke Google Sheets dan Email Guru!";
+    statusEl.style.color = "#28a745";
+  })
+  .catch((error) => {
+    console.error('Error!', error);
+    statusEl.textContent = "❌ Gagal mengirim laporan. Periksa koneksi internet.";
+    statusEl.style.color = "red";
+  });
+}
+
+function getLeaderboard() {
+  try { return JSON.parse(localStorage.getItem(CONFIG.leaderboardKey)) || []; }
+  catch(e) { return []; }
+}
+function saveToLeaderboard(sc, total) {
+  const entry = {
+    score: sc, total,
+    pct: Math.round((sc / total) * 100),
+    mode: examMode ? 'Ujian' : 'Latihan',
+    date: new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' })
+  };
+  const lb = getLeaderboard();
+  lb.push(entry);
+  lb.sort((a, b) => b.pct - a.pct || b.score - a.score);
+  localStorage.setItem(CONFIG.leaderboardKey, JSON.stringify(lb.slice(0, CONFIG.maxLeaderboard)));
+}
+function renderLeaderboard() {
+  const lb = getLeaderboard();
+  const content = document.getElementById('lb-content');
+  if (lb.length === 0) {
+    content.innerHTML = '<p class="lb-empty">Belum ada skor tersimpan.<br>Selesaikan quiz dulu untuk masuk leaderboard!</p>';
+    return;
+  }
+  let html = '<table class="lb-table"><thead><tr><th>#</th><th>Skor</th><th>%</th><th>Mode</th><th>Tanggal</th></tr></thead><tbody>';
+  lb.forEach((e, i) => {
+    const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1);
+    html += `<tr><td>${medal}</td><td>${e.score}/${e.total}</td><td>${e.pct}%</td><td>${e.mode}</td><td>${e.date}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  content.innerHTML = html;
+}
+
+document.getElementById('copy-session-btn').addEventListener('click', copySessionLink);
+document.getElementById('start-normal-btn').onclick = () => startQuiz(false);
+document.getElementById('start-exam-btn').onclick   = () => startQuiz(true);
+document.getElementById('restart-btn').onclick      = () => startQuiz(examMode);
+document.getElementById('back-menu-btn').onclick    = () => showScreen('menu-screen');
+document.getElementById('show-lb-btn').onclick      = () => { renderLeaderboard(); showScreen('lb-screen'); };
+document.getElementById('lb-back-btn').onclick      = () => showScreen('menu-screen');
+document.getElementById('clear-lb-btn').onclick     = () => {
+  if (confirm('Hapus semua skor di leaderboard?')) {
+    localStorage.removeItem(CONFIG.leaderboardKey);
+    renderLeaderboard();
+  }
+};
+
+function updateMenuInfo() {
+  const n = QUESTIONS.length;
+  document.getElementById('menu-subtitle').textContent = `${n} Soal • Kanji JLPT N5–N4`;
+  document.getElementById('timer-badge').textContent = `⏱️ Min ${CONFIG.minTimePerQuestion}s (adaptif)`;
+}
+
+updateMenuInfo();
+updateSessionUI();
+showScreen('menu-screen');
+</script>
+</body>
+</html>
